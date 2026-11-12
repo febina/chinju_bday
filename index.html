@@ -1,1338 +1,487 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CHINJU LEVEL 38 | Classified Roast Experience</title>
+  <title>Happy Birthday Chinju! ✨</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            void: '#09060E',
-            hotpink: '#FF1E8A',
-            electricpurple: '#8A2BE2',
-            neonred: '#FF2A3C',
-            gold: '#FFD700',
-            champagne: '#F7E7CE'
+            cream: '#FFFDF7',
+            blush: '#FDF0F4',
+            softpink: '#F8E1EB',
+            champagne: '#E6C594',
+            gold: '#D4AF37',
+            deepgold: '#B88E28',
+            plum: '#2D1527',
+            softplum: '#542C4C'
           },
           fontFamily: {
-            syne: ['Syne', 'sans-serif'],
             serif: ['Playfair Display', 'serif'],
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            mono: ['Space Mono', 'monospace']
-          },
-          animation: {
-            'siren-pulse': 'siren 1.2s infinite ease-in-out',
-            'spin-slow': 'spin 12s linear infinite',
-            'float': 'float 4s ease-in-out infinite',
-            'pulse-glow': 'pulseGlow 2s infinite alternate',
-            'flicker': 'flicker 0.15s infinite alternate'
-          },
-          keyframes: {
-            siren: {
-              '0%, 100%': { opacity: '0.2', boxShadow: '0 0 10px #FF2A3C' },
-              '50%': { opacity: '0.8', boxShadow: '0 0 40px #FF2A3C, 0 0 80px #FF1E8A' }
-            },
-            float: {
-              '0%, 100%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-12px)' }
-            },
-            pulseGlow: {
-              '0%': { filter: 'drop-shadow(0 0 5px rgba(255, 30, 138, 0.4))' },
-              '100%': { filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 0.8))' }
-            },
-            flicker: {
-              '0%': { opacity: '0.8', transform: 'scale(0.98) skewX(-2deg)' },
-              '100%': { opacity: '1', transform: 'scale(1.08) skewX(2deg)' }
-            }
+            sans: ['Plus Jakarta Sans', 'sans-serif']
           }
         }
       }
     };
   </script>
 
-  <!-- External Libraries (CDN) -->
+  <!-- Canvas Confetti CDN -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    /* Custom Scrollbar & Utility Styles */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #09060E; }
-    ::-webkit-scrollbar-thumb { background: #8A2BE2; border-radius: 4px; }
-    
-    .glass-card {
-      background: rgba(18, 12, 30, 0.75);
-      backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 30, 138, 0.25);
+    /* Global Styles & Animations */
+    body {
+      background: radial-gradient(circle at 50% 30%, #FFFDF7 0%, #FDF0F4 60%, #F6E2EC 100%);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: #2D1527;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
-    
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF5C0 0%, #FFD700 50%, #B8860B 100%);
+
+    /* Shimmering Gold Text Effect */
+    .shimmer-gold {
+      background: linear-gradient(135deg, #B88E28 0%, #F3E5AB 25%, #D4AF37 50%, #AA7C11 75%, #F3E5AB 100%);
+      background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-    }
-    
-    .pink-purple-text {
-      background: linear-gradient(135deg, #FF1E8A 0%, #C77DFF 50%, #8A2BE2 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      animation: shimmer 4s linear infinite;
     }
 
-    /* Flip Card Styles */
-    .perspective-1000 { perspective: 1000px; }
-    .transform-style-3d { transform-style: preserve-3d; }
-    .backface-hidden { backface-visibility: hidden; }
-    .rotate-y-180 { transform: rotateY(180deg); }
-
-    /* Scene Transitions */
-    .scene {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
-      transform: translateY(15px);
-    }
-    .scene.active {
-      display: flex;
-      opacity: 1;
-      transform: translateY(0);
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
     }
 
-    /* Candle Smoke Effect */
-    .smoke {
+    /* Card Perspective & 3D Unfolding */
+    .perspective-2000 {
+      perspective: 2000px;
+    }
+
+    .envelope-flap {
+      transform-origin: top center;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+
+    .envelope-flap.open {
+      transform: rotateX(180deg);
+    }
+
+    .card-slide {
+      transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
+    }
+
+    /* Soft Glow Border */
+    .gold-glow {
+      box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.25), 0 0 20px rgba(248, 225, 235, 0.6);
+    }
+
+    /* Floating Animations */
+    .float-gentle {
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(1deg); }
+    }
+
+    /* Floating Heart Particles */
+    .heart-particle {
       position: absolute;
-      width: 8px;
-      height: 20px;
-      background: rgba(255, 255, 255, 0.5);
-      border-radius: 50%;
-      animation: smokeRise 1.5s forwards ease-out;
-    }
-    @keyframes smokeRise {
-      0% { opacity: 0.8; transform: translateY(0) scale(1); filter: blur(2px); }
-      100% { opacity: 0; transform: translateY(-40px) scale(3); filter: blur(6px); }
+      pointer-events: none;
+      animation: heartRise 3s ease-out forwards;
     }
 
-    /* Laser Scanner Line */
-    .scanner-line {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #FF2A3C, #FF1E8A, transparent);
-      box-shadow: 0 0 15px #FF2A3C;
-      animation: scanMove 2.5s infinite ease-in-out;
-    }
-    @keyframes scanMove {
-      0% { top: 0%; }
-      50% { top: 96%; }
-      100% { top: 0%; }
+    @keyframes heartRise {
+      0% { opacity: 1; transform: translateY(0) scale(0.6) rotate(0deg); }
+      100% { opacity: 0; transform: translateY(-120px) scale(1.4) rotate(25deg); }
     }
 
-    /* Photo Framings */
-    .chinju-img {
-      object-fit: cover;
-      object-position: 50% 22%;
-      width: 100%;
-      height: 100%;
+    /* Photo Framed Arc */
+    .photo-arch {
+      border-radius: 120px 120px 24px 24px;
     }
   </style>
 </head>
+<body class="flex flex-col justify-between items-center relative min-h-screen p-4 sm:p-8">
 
-<body class="bg-void text-white font-sans antialiased min-h-screen flex flex-col justify-between overflow-x-hidden relative selection:bg-hotpink selection:text-white transition-colors duration-1000" id="appBody">
+  <!-- Background Canvas for Bokeh / Sparkles -->
+  <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
-  <!-- Fullscreen Particle/Confetti Canvas -->
-  <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-10"></canvas>
-
-  <!-- TOP UTILITY BAR (Photo Uploader + Audio Synthesizer Toggle + Progress Tracker) -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-void/80 backdrop-blur-md border-b border-white/10 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
-    
-    <!-- Left: Brand / Level Indicator -->
+  <!-- Top Utilities Header -->
+  <header class="w-full max-w-4xl flex justify-between items-center z-30 mb-4">
     <div class="flex items-center gap-2">
-      <span class="inline-block w-3 h-3 rounded-full bg-neonred animate-ping"></span>
-      <span class="font-mono text-xs uppercase tracking-widest text-hotpink font-bold">DOSSIER #38: CHINJU</span>
+      <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
+      <span class="font-serif italic text-sm tracking-wide text-softplum opacity-80">For Chinju ✨</span>
     </div>
 
-    <!-- Center: Scene Stepper Indicator -->
-    <div class="hidden md:flex items-center gap-1.5 font-mono text-xs text-gray-400" id="stepperContainer">
-      <!-- Generated via JavaScript -->
-    </div>
-
-    <!-- Right: Quick Actions (Upload Photo & Audio Toggle) -->
     <div class="flex items-center gap-3">
-      
-      <!-- Audio Toggle Button -->
-      <button id="audioToggleBtn" onclick="toggleAudio()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/15 hover:border-hotpink hover:bg-hotpink/10 transition text-xs font-mono">
-        <span id="audioIcon">🔇</span>
-        <span id="audioLabel" class="hidden sm:inline">SOUND: OFF</span>
+      <!-- Music Box Toggle Button -->
+      <button id="audioBtn" onclick="toggleMusic()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-gold/30 text-xs text-softplum hover:border-gold hover:bg-white shadow-sm transition-all duration-300">
+        <span id="audioIcon">🎵</span>
+        <span id="audioText" class="font-medium">Music Box: Off</span>
       </button>
 
-      <!-- Change Photo Upload Button -->
-      <label class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-electricpurple/20 border border-electricpurple/50 hover:bg-electricpurple/40 transition text-xs font-mono cursor-pointer text-purple-200">
-        <span>📸</span>
-        <span class="hidden sm:inline">CHANGE PHOTO</span>
-        <input type="file" id="photoFileInput" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
+      <!-- Change Photo Option -->
+      <label class="cursor-pointer px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-pink-200 text-xs text-softplum hover:bg-white shadow-sm transition-all duration-300">
+        <span>📸 Change Photo</span>
+        <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
       </label>
-
-      <!-- Quick Jumper Menu Dropdown (Mobile friendly) -->
-      <select onchange="jumpToScene(parseInt(this.value))" id="mobileSceneSelector" class="md:hidden bg-void border border-white/20 text-xs font-mono text-hotpink rounded-md px-2 py-1 focus:outline-none">
-        <option value="1">Scene 1: Alert</option>
-        <option value="2">Scene 2: Verification</option>
-        <option value="3">Scene 3: The Roast</option>
-        <option value="4">Scene 4: Awards</option>
-        <option value="5">Scene 5: Ageing Test</option>
-        <option value="6">Scene 6: Gallery</option>
-        <option value="7">Scene 7: Cake</option>
-        <option value="8">Scene 8: Finale</option>
-      </select>
-
     </div>
   </header>
 
-  <!-- MAIN SCENE CONTAINER -->
-  <main class="w-full max-w-5xl mx-auto px-4 pt-24 pb-16 flex-grow flex flex-col justify-center items-center relative z-20">
+  <!-- MAIN INTERACTIVE CONTAINER -->
+  <main class="w-full max-w-xl flex-grow flex items-center justify-center relative z-20 py-4">
 
     <!-- =================================================================== -->
-    <!-- SCENE 1: CLASSIFIED BIRTHDAY ALERT 🚨 -->
+    <!-- STATE 1: ENVELOPE / CLOSED CARD -->
     <!-- =================================================================== -->
-    <section id="scene-1" class="scene active flex-col items-center text-center w-full max-w-2xl">
-      <!-- Pulsing Siren Bar -->
-      <div class="w-full h-1.5 bg-gradient-to-r from-transparent via-neonred to-transparent rounded-full animate-siren-pulse mb-6"></div>
+    <div id="envelopeSection" class="w-full flex flex-col items-center perspective-2000 transition-all duration-700">
       
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neonred/10 border border-neonred/40 text-neonred font-mono text-xs tracking-widest uppercase mb-4 animate-pulse">
-        🚨 TOP SECRET – CLASSIFIED INFORMATION 🚨
-      </div>
-
-      <h1 class="text-4xl md:text-6xl font-syne font-extrabold tracking-tight mb-3">
-        LEVEL <span class="text-neonred">38</span> DETECTED
-      </h1>
-      
-      <p class="font-mono text-sm text-gray-300 max-w-md mb-8">
-        An individual identified as <strong class="text-hotpink font-bold">CHINJU</strong> has officially reached age 38. Authorities confirm that maturity levels remain suspiciously low.
-      </p>
-
-      <!-- Spotlight Frame with Target Reticle & Laser Scanner -->
-      <div class="relative w-56 h-56 md:w-64 md:h-64 rounded-full p-2 bg-gradient-to-b from-neonred via-hotpink to-electricpurple shadow-2xl shadow-neonred/40 mb-8 group cursor-pointer" onclick="playFX('scan')">
-        <div class="w-full h-full rounded-full overflow-hidden relative border-4 border-void">
-          <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s1" onerror="this.src='https://placehold.co/400x400/09060E/FF1E8A?text=CHINJU+38'">
-          <!-- Target Overlay -->
-          <div class="absolute inset-0 border border-neonred/40 rounded-full flex items-center justify-center pointer-events-none">
-            <div class="w-12 h-12 border-2 border-dashed border-neonred rounded-full animate-spin-slow"></div>
-          </div>
-          <!-- Scanner Line -->
-          <div class="scanner-line"></div>
-        </div>
+      <!-- Envelope Body -->
+      <div class="relative w-full max-w-md bg-gradient-to-b from-cream to-blush rounded-3xl p-6 sm:p-8 border-2 border-gold/40 gold-glow text-center float-gentle cursor-pointer group" onclick="openGreetingCard()">
         
-        <!-- Target Reticle Badge -->
-        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-neonred text-white font-mono text-[10px] px-3 py-1 rounded-full font-bold uppercase tracking-wider shadow-lg">
-          SUBJECT MATCH 99.9%
-        </span>
-      </div>
+        <!-- Shimmering Accent Lines -->
+        <div class="absolute inset-2 border border-gold/20 rounded-2xl pointer-events-none"></div>
 
-      <!-- Action Button -->
-      <button onclick="goToScene(2); playFX('siren');" class="group relative px-8 py-4 rounded-xl bg-gradient-to-r from-neonred via-hotpink to-electricpurple font-syne font-extrabold text-lg tracking-wider text-white shadow-xl shadow-hotpink/30 hover:scale-105 active:scale-95 transition-all duration-300">
-        <span class="flex items-center gap-3">
-          🔍 INVESTIGATE THE 38-YEAR-OLD
-          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-        </span>
-      </button>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 2: AGE VERIFICATION 💀 -->
-    <!-- =================================================================== -->
-    <section id="scene-2" class="scene flex-col items-center w-full max-w-3xl">
-      <div class="text-center mb-8">
-        <span class="font-mono text-xs text-hotpink tracking-widest uppercase font-bold">SECURITY CHECKPOINT 02</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold mt-1">Welcome, Chinju.</h2>
-        <p class="font-mono text-sm text-gray-400 mt-2">Please review and verify your system diagnostics before proceeding.</p>
-      </div>
-
-      <!-- Diagnostics Layout -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full mb-8">
-        <!-- Photo Side Tile -->
-        <div class="glass-card rounded-2xl p-4 flex flex-col items-center justify-center text-center">
-          <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-hotpink shadow-lg mb-3">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s2">
-          </div>
-          <span class="font-mono text-xs text-gray-400">STATUS: AGING LIKE VINTAGE WINE</span>
-          <span class="font-mono text-xs text-hotpink font-bold mt-1">ACTUAL AGE: 38</span>
-        </div>
-
-        <!-- Diagnostic Items -->
-        <div class="md:col-span-2 glass-card rounded-2xl p-6 font-mono text-sm space-y-3 border-electricpurple/40">
-          <div class="flex justify-between items-center border-b border-white/10 pb-2">
-            <span class="text-gray-400">AGE CALCULATION:</span>
-            <span class="text-hotpink font-bold">38 YEARS (LEVEL 38)</span>
-          </div>
-          <div class="flex justify-between items-center border-b border-white/10 pb-2">
-            <span class="text-gray-400">WARRANTY STATUS:</span>
-            <span class="text-neonred font-bold">EXPIRED 💀</span>
-          </div>
-          <div class="flex justify-between items-center border-b border-white/10 pb-2">
-            <span class="text-gray-400">SOFTWARE VERSION:</span>
-            <span class="text-electricpurple font-bold">STILL 18 (MENTALLY)</span>
-          </div>
-          <div class="flex justify-between items-center border-b border-white/10 pb-2">
-            <span class="text-gray-400">BATTERY HEALTH:</span>
-            <span class="text-yellow-400 font-bold">QUESTIONABLE (NEED COFFEE)</span>
-          </div>
-          <div class="flex justify-between items-center border-b border-white/10 pb-2">
-            <span class="text-gray-400">MEMORY CAPACITY:</span>
-            <span class="text-blue-400 font-bold">SELECTIVELY AVAILABLE</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-gray-400">DRAMA STORAGE:</span>
-            <span class="text-pink-400 font-bold">UNLIMITED TERABYTES</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Question Prompt Box -->
-      <div class="w-full glass-card rounded-2xl p-6 text-center border-gold/40">
-        <h3 class="text-xl font-syne font-bold mb-4">Do you genuinely believe you're still 25?</h3>
+        <!-- Decorative Floral/Sparkle Header -->
+        <div class="text-3xl mb-3 opacity-90">🌸 ✨ 🌿</div>
         
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-          <button onclick="handleVerificationChoice(true)" class="px-6 py-3 rounded-xl bg-hotpink/20 hover:bg-hotpink border border-hotpink font-bold transition-all duration-300">
-            Obviously YES! 💅
-          </button>
-          <button onclick="handleVerificationChoice(false)" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-electricpurple border border-white/20 font-bold transition-all duration-300">
-            Reality hurts. NO! 👵
+        <!-- Envelope Title -->
+        <h2 class="font-serif text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-2">Special Delivery</h2>
+        <h1 class="font-serif text-3xl sm:text-4xl text-plum font-bold mb-4">For Dearest Chinju</h1>
+
+        <p class="text-xs text-softplum/70 max-w-xs mx-auto mb-8 leading-relaxed font-light">
+          A heartfelt digital card crafted with warmth, love, and wishes just for you.
+        </p>
+
+        <!-- Wax Seal Button -->
+        <div class="relative inline-flex items-center justify-center">
+          <!-- Pulse Effect -->
+          <div class="absolute inset-0 rounded-full bg-gold/20 animate-ping"></div>
+          
+          <!-- Seal Circle -->
+          <button class="relative w-20 h-20 rounded-full bg-gradient-to-br from-gold via-champagne to-deepgold text-plum font-serif text-2xl font-bold flex flex-col items-center justify-center shadow-lg border-2 border-white/60 group-hover:scale-105 transition-transform duration-300">
+            <span>✨</span>
+            <span class="text-[10px] font-sans font-semibold tracking-wider uppercase text-plum/90 mt-0.5">OPEN</span>
           </button>
         </div>
 
-        <div id="verificationFeedback" class="hidden mt-6 p-4 rounded-xl font-mono text-sm border"></div>
+        <p class="text-[11px] text-gold font-medium mt-6 tracking-wide">
+          Tap seal to open card 💌
+        </p>
       </div>
 
-      <!-- Next Scene Trigger (Hidden until clicked) -->
-      <button id="scene2NextBtn" onclick="goToScene(3)" class="hidden mt-6 px-8 py-3 rounded-xl bg-gold text-void font-syne font-extrabold hover:bg-yellow-300 transition-all shadow-lg animate-bounce">
-        PROCEED TO THE ROAST 🔥
-      </button>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 3: THE OFFICIAL ROAST 🔥 -->
-    <!-- =================================================================== -->
-    <section id="scene-3" class="scene flex-col items-center w-full max-w-4xl">
-      <div class="text-center mb-8">
-        <span class="font-mono text-xs text-neonred tracking-widest uppercase font-bold">SCENE 03 • NO MERCY ZONE</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold mt-1">38 YEARS OF EXPERIENCE.</h2>
-        <p class="font-mono text-hotpink text-sm font-bold mt-1">ZERO SIGNS OF IMPROVEMENT.</p>
-        <p class="text-xs text-gray-400 font-mono mt-2">Tap any roast card below to reveal the deeper savage punchline!</p>
-      </div>
-
-      <!-- Survival Progress counter -->
-      <div class="mb-6 font-mono text-xs bg-white/5 border border-white/10 px-4 py-2 rounded-full flex items-center gap-2">
-        <span>ROAST SURVIVAL RATE:</span>
-        <span id="roastCounter" class="text-hotpink font-bold">0 / 6 CARDS REVEALED</span>
-      </div>
-
-      <!-- 6 Interactive Flip Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full mb-8">
-        
-        <!-- Roast Card 1 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 1)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-hotpink/30 hover:border-hotpink">
-            <!-- Front -->
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-hotpink">#01</span>
-              <p class="font-bold text-base">"Age is just a number. Unfortunately, yours is getting suspiciously large."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <!-- Back -->
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-hotpink/30 to-void rotate-y-180 backface-hidden border border-hotpink">
-              <span class="font-mono text-xs text-hotpink font-bold">SAVAGE FACT:</span>
-              <p class="font-mono text-sm text-yellow-300 font-bold">"At this point, Chinju, your age is practically an international area code!"</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 💀</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Roast Card 2 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 2)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-electricpurple/30 hover:border-electricpurple">
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-electricpurple">#02</span>
-              <p class="font-bold text-base">"You're not old, Chinju. You're just a limited-edition antique."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-electricpurple/30 to-void rotate-y-180 backface-hidden border border-electricpurple">
-              <span class="font-mono text-xs text-electricpurple font-bold">CARE INSTRUCTIONS:</span>
-              <p class="font-mono text-sm text-pink-300 font-bold">"Handle with care: fragile knees, high maintenance attitude, and priceless drama."</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 🏆</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Roast Card 3 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 3)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-neonred/30 hover:border-neonred">
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-neonred">#03</span>
-              <p class="font-bold text-base">"At 38, even your back makes sound effects when you stand up."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-neonred/30 to-void rotate-y-180 backface-hidden border border-neonred">
-              <span class="font-mono text-xs text-neonred font-bold">PHYSICAL STATUS:</span>
-              <p class="font-mono text-sm text-yellow-200 font-bold">"Snap, crackle, and pop isn't breakfast anymore—it's your lumbar spine."</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 🦴</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Roast Card 4 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 4)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-gold/30 hover:border-gold">
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-gold">#04</span>
-              <p class="font-bold text-base">"Your childhood photos are now classified historical documents."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-gold/20 to-void rotate-y-180 backface-hidden border border-gold">
-              <span class="font-mono text-xs text-gold font-bold">ARCHAEOLOGY ALERT:</span>
-              <p class="font-mono text-sm text-white font-bold">"Archaeologists are currently carbon-dating your high school graduation album!"</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 📜</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Roast Card 5 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 5)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-blue-500/30 hover:border-blue-500">
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-blue-400">#05</span>
-              <p class="font-bold text-base">"Your energy level requires a mandatory software update & fast charger."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-blue-500/20 to-void rotate-y-180 backface-hidden border border-blue-400">
-              <span class="font-mono text-xs text-blue-400 font-bold">SYSTEM WARNING:</span>
-              <p class="font-mono text-sm text-cyan-200 font-bold">"Warning: 12% battery remaining by 8:30 PM every single Friday."</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 🔋</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Roast Card 6 -->
-        <div class="roast-card perspective-1000 h-52 cursor-pointer" onclick="flipRoastCard(this, 6)">
-          <div class="card-inner relative w-full h-full duration-500 transform-style-3d glass-card rounded-2xl p-5 flex flex-col justify-between border-pink-500/30 hover:border-pink-500">
-            <div class="card-front absolute inset-0 p-5 flex flex-col justify-between backface-hidden">
-              <span class="font-mono text-2xl font-black text-pink-400">#06</span>
-              <p class="font-bold text-base">"You're officially closer to 40 than to 30. Let that sink in."</p>
-              <span class="text-xs font-mono text-gray-400 flex items-center gap-1">👇 Tap to reveal punchline</span>
-            </div>
-            <div class="card-back absolute inset-0 p-5 flex flex-col justify-between rounded-2xl bg-gradient-to-br from-pink-500/20 to-void rotate-y-180 backface-hidden border border-pink-400">
-              <span class="font-mono text-xs text-pink-400 font-bold">MATH CHECK:</span>
-              <p class="font-mono text-sm text-pink-200 font-bold">"Don't panic—38 is just 29 with nine solid years of extra shipping & handling!"</p>
-              <span class="text-[10px] font-mono text-gray-400">SURVIVED 📦</span>
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-      <button onclick="goToScene(4)" class="px-8 py-3 rounded-xl bg-gradient-to-r from-hotpink to-electricpurple text-white font-syne font-extrabold shadow-lg hover:opacity-90 transition">
-        ACCEPT YOUR OFFICIAL AWARDS 🏆
-      </button>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 4: CHINJU'S OFFICIAL AWARDS 🏆 -->
-    <!-- =================================================================== -->
-    <section id="scene-4" class="scene flex-col items-center w-full max-w-4xl">
-      <div class="text-center mb-8">
-        <span class="font-mono text-xs text-gold tracking-widest uppercase font-bold">THE VIP RED CARPET CEREMONY</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold gold-gradient-text mt-1">THE 38th ANNUAL CHINJU AWARDS</h2>
-        <p class="font-mono text-xs text-gray-300 mt-2">Recognizing excellence in unmatched drama, overthinking, and eternal youth denial.</p>
-      </div>
-
-      <!-- Main Nominee Portrait Frame -->
-      <div class="relative w-36 h-36 md:w-44 md:h-44 rounded-full p-1.5 bg-gradient-to-r from-gold via-yellow-200 to-amber-500 shadow-2xl mb-8 group">
-        <div class="w-full h-full rounded-full overflow-hidden border-4 border-void">
-          <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s4">
-        </div>
-        <div class="absolute -bottom-3 left-1/2 -translate-x-1/2 bg-gold text-void font-bold font-mono text-xs px-3 py-0.5 rounded-full shadow">
-          NOMINEE #1
-        </div>
-      </div>
-
-      <!-- 6 Award Trophy Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full mb-8">
-        
-        <!-- Award 1 -->
-        <div onclick="openAwardModal(1)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-bounce">🏆</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">Lifetime Achievement in Being Dramatic</h4>
-          <p class="font-mono text-[11px] text-gray-400">Awarded for turning minor inconvenience into an Oscar-worthy tragedy.</p>
-        </div>
-
-        <!-- Award 2 -->
-        <div onclick="openAwardModal(2)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-pulse">🧠</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">World's Most Experienced Overthinker</h4>
-          <p class="font-mono text-[11px] text-gray-400">Awarded for analyzing a 3-word text message for 6 consecutive hours.</p>
-        </div>
-
-        <!-- Award 3 -->
-        <div onclick="openAwardModal(3)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-bounce">📝</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">Professional Excuse Generator</h4>
-          <p class="font-mono text-[11px] text-gray-400">Awarded for canceling plans with 100% believable elaborate stories.</p>
-        </div>
-
-        <!-- Award 4 -->
-        <div onclick="openAwardModal(4)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-pulse">👑</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">CEO of Unnecessary Drama</h4>
-          <p class="font-mono text-[11px] text-gray-400">Unanimously elected by friends, family, and innocent bystanders.</p>
-        </div>
-
-        <!-- Award 5 -->
-        <div onclick="openAwardModal(5)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-bounce">✨</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">Still Gorgeous Despite System Ageing</h4>
-          <p class="font-mono text-[11px] text-gray-400">Awarded for looking stunning in a Kerala kasavu saree at Level 38.</p>
-        </div>
-
-        <!-- Award 6 -->
-        <div onclick="openAwardModal(6)" class="glass-card rounded-xl p-5 border-gold/30 hover:border-gold hover:scale-105 transition-all cursor-pointer flex flex-col items-center text-center">
-          <div class="text-4xl mb-2 animate-pulse">🎭</div>
-          <h4 class="font-syne font-bold text-gold text-sm mb-1">Best Actress: Pretending to Be Young</h4>
-          <p class="font-mono text-[11px] text-gray-400">Awarded for attempting gen-Z slang with absolute confidence.</p>
-        </div>
-
-      </div>
-
-      <button onclick="goToScene(5)" class="px-8 py-3 rounded-xl bg-gold text-void font-syne font-extrabold hover:bg-yellow-400 transition shadow-lg">
-        TAKE THE AGEING TEST 🎮
-      </button>
-    </section>
-
-    <!-- Award Speech Modal -->
-    <div id="awardModal" class="fixed inset-0 bg-void/90 z-50 hidden flex items-center justify-center p-4 backdrop-blur-md">
-      <div class="glass-card max-w-md w-full rounded-2xl p-6 border-gold text-center relative">
-        <button onclick="closeAwardModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white font-mono">✕</button>
-        <div class="text-5xl mb-3" id="modalEmoji">🏆</div>
-        <h3 class="text-2xl font-syne font-bold text-gold mb-2" id="modalTitle">Award Title</h3>
-        <p class="font-mono text-sm text-gray-300 mb-6" id="modalDesc">Citation description here...</p>
-        <div class="p-3 bg-white/5 rounded-xl border border-white/10 text-xs font-mono text-hotpink mb-4">
-          "I'd like to thank coffee, bad decisions, and everyone who tolerates my daily chaos." — Chinju
-        </div>
-        <button onclick="closeAwardModal()" class="w-full py-2.5 rounded-xl bg-gold text-void font-bold">ACCEPT WITH PRIDE</button>
-      </div>
     </div>
 
 
     <!-- =================================================================== -->
-    <!-- SCENE 5: THE AGEING TEST 🎮 -->
+    <!-- STATE 2: INSIDE GREETING CARD (Initially Hidden) -->
     <!-- =================================================================== -->
-    <section id="scene-5" class="scene flex-col items-center w-full max-w-2xl">
-      <div class="text-center mb-6">
-        <span class="font-mono text-xs text-electricpurple tracking-widest uppercase font-bold">INTERACTIVE ASSESSMENT</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold mt-1">THE CHINJU AGEING QUIZ</h2>
-        <p class="font-mono text-xs text-gray-400 mt-2">Answer honestly to calculate your official diagnostic score.</p>
-      </div>
-
-      <!-- Quiz Container -->
-      <div class="w-full glass-card rounded-2xl p-6 border-electricpurple/40 relative">
-        <!-- Quiz Stepper Progress -->
-        <div class="w-full bg-white/10 h-2 rounded-full mb-6 overflow-hidden">
-          <div id="quizProgressBar" class="bg-gradient-to-r from-hotpink to-gold h-full w-1/4 transition-all duration-300"></div>
-        </div>
-
-        <div id="quizQuestionBox">
-          <!-- Question content injected dynamically -->
-        </div>
-
-        <!-- Quiz Score Result Box (Initially hidden) -->
-        <div id="quizResultBox" class="hidden text-center py-4">
-          <div class="text-5xl mb-3">👵⚡️</div>
-          <h3 class="text-2xl font-syne font-extrabold text-gold mb-1">DIAGNOSTIC COMPLETE!</h3>
-          <p class="font-mono text-sm text-hotpink mb-4" id="quizScoreTitle">CHINJU AGEING SCORE</p>
-          
-          <div class="grid grid-cols-3 gap-2 font-mono text-xs mb-6">
-            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-              <span class="text-gray-400 block">MENTAL AGE</span>
-              <span class="text-xl font-bold text-hotpink" id="scoreMental">19</span>
-            </div>
-            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-              <span class="text-gray-400 block">SPINE AGE</span>
-              <span class="text-xl font-bold text-neonred" id="scoreSpine">68</span>
-            </div>
-            <div class="bg-white/5 p-3 rounded-xl border border-white/10">
-              <span class="text-gray-400 block">DRAMA LEVEL</span>
-              <span class="text-xl font-bold text-gold" id="scoreDrama">999%</span>
-            </div>
-          </div>
-
-          <p class="font-mono text-xs text-gray-300 bg-white/5 p-4 rounded-xl mb-6 border border-white/10" id="scoreVerdict">
-            Verdict: Clinically 38, mentally stuck in a college canteen, physically needing a heating pad.
-          </p>
-
-          <div class="flex gap-3 justify-center">
-            <button onclick="resetQuiz()" class="px-5 py-2.5 rounded-xl bg-white/10 text-xs font-mono hover:bg-white/20">RETAKE TEST</button>
-            <button onclick="goToScene(6)" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-hotpink to-electricpurple font-syne font-bold text-sm">VIEW PHOTO GALLERY 📸</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 6: THE PHOTO GALLERY 📸 -->
-    <!-- =================================================================== -->
-    <section id="scene-6" class="scene flex-col items-center w-full max-w-4xl">
-      <div class="text-center mb-8">
-        <span class="font-mono text-xs text-hotpink tracking-widest uppercase font-bold">EDITORIAL PORTRAIT SUITE</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold mt-1">38 AND STILL CAUSING TROUBLE</h2>
-        <p class="font-mono text-xs text-gray-400 mt-2">Featuring Chinju's authentic beauty in high-fashion, high-sarcasm framing.</p>
-      </div>
-
-      <!-- 4 Custom Editorial Frame Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full mb-8">
-        
-        <!-- Frame 1: Magazine Cover -->
-        <div class="glass-card rounded-2xl p-4 border-hotpink/40 hover:border-hotpink transition flex flex-col relative overflow-hidden group">
-          <div class="absolute top-2 left-2 bg-hotpink text-white font-mono text-[9px] px-2 py-0.5 rounded font-bold z-10">ISSUE #38</div>
-          <div class="w-full h-72 rounded-xl overflow-hidden relative mb-3 bg-black">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s6-1">
-            <!-- Magazine Headlines -->
-            <div class="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent p-4 flex flex-col justify-end text-left pointer-events-none">
-              <span class="font-syne text-3xl font-black text-white tracking-wider">VOGUE-ISH</span>
-              <p class="font-mono text-xs text-hotpink font-bold">CHINJU: THE 38 EDITION</p>
-              <p class="font-sans text-[11px] text-gray-200 mt-1">"How to survive on iced coffee & pure audacity."</p>
-            </div>
-          </div>
-          <p class="font-mono text-xs text-gray-400 text-center">Exclusive Interview: Why She's Always 20 Minutes Late</p>
-        </div>
-
-        <!-- Frame 2: Wanted Poster -->
-        <div class="glass-card rounded-2xl p-4 border-gold/40 hover:border-gold transition flex flex-col relative overflow-hidden bg-amber-950/20">
-          <div class="w-full h-72 rounded-xl overflow-hidden relative mb-3 border-2 border-dashed border-gold/50 p-2">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo filter sepia-[0.3]" id="photo-s6-2">
-            <div class="absolute top-4 left-1/2 -translate-x-1/2 bg-gold text-void font-bold font-mono text-xs px-3 py-1 shadow">
-              WANTED DEAD OR ALIVE
-            </div>
-          </div>
-          <div class="text-center font-mono">
-            <p class="text-xs text-gold font-bold">FOR BEING TOO OLD TO ACT THIS YOUNG</p>
-            <p class="text-[10px] text-gray-400 mt-1">REWARD: $38,000,000 IN PREMIUM SKINCARE</p>
-          </div>
-        </div>
-
-        <!-- Frame 3: Celebrity Spotlight -->
-        <div class="glass-card rounded-2xl p-4 border-electricpurple/40 hover:border-electricpurple transition flex flex-col relative overflow-hidden">
-          <div class="w-full h-72 rounded-xl overflow-hidden relative mb-3">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s6-3">
-            <div class="absolute inset-0 bg-electricpurple/20 mix-blend-overlay"></div>
-            <!-- Paparazzi Flash Overlay -->
-            <div class="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-          </div>
-          <div class="text-center font-mono">
-            <p class="text-xs text-electricpurple font-bold">RED CARPET ICON</p>
-            <p class="text-[10px] text-gray-400">"Serving looks & Kerala elegance since Level 0."</p>
-          </div>
-        </div>
-
-        <!-- Frame 4: Luxury Portrait Frame -->
-        <div class="glass-card rounded-2xl p-4 border-white/20 hover:border-white transition flex flex-col relative overflow-hidden">
-          <div class="w-full h-72 rounded-xl overflow-hidden relative mb-3 p-2 bg-gradient-to-tr from-hotpink via-gold to-electricpurple">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo rounded-lg" id="photo-s6-4">
-          </div>
-          <div class="text-center font-mono">
-            <p class="text-xs text-pink-300 font-bold">LIMITED EDITION PORTRAIT</p>
-            <p class="text-[10px] text-gray-400">Authentic 100% Unfiltered Saree Perfection</p>
-          </div>
-        </div>
-
-      </div>
-
-      <button onclick="goToScene(7)" class="px-8 py-3 rounded-xl bg-gradient-to-r from-neonred via-hotpink to-gold text-white font-syne font-extrabold shadow-xl hover:scale-105 transition">
-        PROCEED TO THE BIRTHDAY CAKE 🎂
-      </button>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 7: THE BIRTHDAY CAKE 🎂 -->
-    <!-- =================================================================== -->
-    <section id="scene-7" class="scene flex-col items-center w-full max-w-2xl text-center">
-      <div class="mb-6">
-        <span class="font-mono text-xs text-gold tracking-widest uppercase font-bold">THE CEREMONIAL CEREMONY</span>
-        <h2 class="text-3xl md:text-5xl font-syne font-extrabold gold-gradient-text mt-1">38 CANDLES. ONE HUMAN.</h2>
-        <p class="font-mono text-xs text-hotpink font-bold mt-1">QUESTIONABLE LIFE DECISIONS.</p>
-      </div>
-
-      <!-- CSS/SVG Birthday Cake Container -->
-      <div class="relative w-64 h-72 my-4 flex flex-col items-center justify-end">
-        
-        <!-- Flames & Candles Container (38 Candle representation) -->
-        <div class="flex justify-center items-end gap-1 mb-1 z-20" id="candlesContainer">
-          <!-- Render 12 visible stylized glowing candle sticks representing 38 -->
-        </div>
-
-        <!-- Cake Tier 3 (Top) -->
-        <div class="w-40 h-16 bg-gradient-to-r from-hotpink via-pink-400 to-hotpink rounded-t-2xl border-t-4 border-gold relative flex items-center justify-center shadow-lg">
-          <span class="font-syne font-black text-2xl text-white tracking-widest">38</span>
-          <!-- Drips -->
-          <div class="absolute -bottom-2 inset-x-0 flex justify-around text-hotpink text-xs">💧💧💧💧</div>
-        </div>
-
-        <!-- Cake Tier 2 (Middle) -->
-        <div class="w-52 h-20 bg-gradient-to-r from-electricpurple via-purple-500 to-electricpurple rounded-t-xl border-t-4 border-gold relative flex items-center justify-center shadow-md">
-          <span class="font-mono text-xs text-gold font-bold tracking-widest">CHINJU'S SPECIAL</span>
-        </div>
-
-        <!-- Cake Tier 1 (Bottom Base) -->
-        <div class="w-64 h-24 bg-gradient-to-r from-void via-gray-900 to-void rounded-t-xl border-2 border-gold/60 relative flex items-center justify-center shadow-2xl">
-          <div class="w-full h-2 bg-gold absolute top-4"></div>
-          <span class="font-mono text-[10px] text-gray-400 uppercase tracking-widest mt-4">AGED TO PERFECTION</span>
-        </div>
-        
-        <!-- Stand Plate -->
-        <div class="w-72 h-4 bg-gradient-to-r from-gray-400 via-white to-gray-400 rounded-full shadow-2xl"></div>
-      </div>
-
-      <!-- Blow Candles Button -->
-      <div class="mt-6 flex flex-col items-center gap-3">
-        <button id="blowBtn" onclick="blowCandles()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-gold via-yellow-300 to-amber-500 text-void font-syne font-black text-lg tracking-wider shadow-2xl shadow-gold/30 hover:scale-105 transition-all animate-pulse">
-          💨 BLOW THE CANDLES!
-        </button>
-        
-        <div id="wishSubmittedText" class="hidden font-mono text-xs text-yellow-300 bg-white/5 border border-gold/30 p-4 rounded-xl max-w-md animate-fade-in">
-          ✨ "Your wish has been submitted. Unfortunately, your youth cannot be restored."
-        </div>
-
-        <button id="scene7NextBtn" onclick="goToScene(8)" class="hidden px-8 py-3 rounded-xl bg-hotpink text-white font-syne font-bold hover:bg-pink-600 transition shadow-lg mt-2">
-          REVEAL THE TRUTH ❤️
-        </button>
-      </div>
-    </section>
-
-
-    <!-- =================================================================== -->
-    <!-- SCENE 8: THE EMOTIONAL DAMAGE ❤️ & GRAND FINALE 🥳 -->
-    <!-- =================================================================== -->
-    <section id="scene-8" class="scene flex-col items-center w-full max-w-3xl text-center">
+    <div id="cardSection" class="hidden w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-gold/30 gold-glow text-center card-slide opacity-0 transform translate-y-8 relative overflow-hidden">
       
-      <!-- Stage 1: The Emotional Damage Sweet Message -->
-      <div id="emotionalStage" class="w-full glass-card rounded-3xl p-8 border-gold/50 shadow-2xl bg-gradient-to-b from-void/90 via-purple-950/40 to-void/90 transition-all duration-1000">
-        
-        <!-- Heart / Crown Icon -->
-        <div class="text-6xl mb-4 animate-bounce">👑</div>
-        
-        <h2 class="text-2xl md:text-4xl font-syne font-bold text-pink-300 mb-4">Okay, Chinju. Enough roasting.</h2>
-        
-        <div class="font-serif text-lg md:text-xl text-yellow-100 leading-relaxed italic max-w-xl mx-auto space-y-4 mb-8">
-          <p>
-            "38 looks pretty amazing on you. Behind all the madness, drama, and questionable decisions, you're one of those rare people who make life genuinely warmer and infinitely more fun."
-          </p>
-          <p class="not-italic font-mono text-sm text-hotpink font-bold">
-            Stay crazy, stay fabulous, and never stop being YOU.
-          </p>
+      <!-- Corner Decorative Patterns -->
+      <div class="absolute top-3 left-3 text-gold/40 text-sm">✦</div>
+      <div class="absolute top-3 right-3 text-gold/40 text-sm">✦</div>
+      <div class="absolute bottom-3 left-3 text-gold/40 text-sm">✦</div>
+      <div class="absolute bottom-3 right-3 text-gold/40 text-sm">✦</div>
+
+      <!-- PORTRAIT FRAME -->
+      <div class="relative w-44 h-56 mx-auto mb-6 p-1.5 rounded-[100px] bg-gradient-to-b from-gold via-champagne to-gold/30 shadow-md">
+        <div class="w-full h-full rounded-[94px] overflow-hidden bg-blush border-2 border-white relative">
+          <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" id="chinjuPhoto" class="w-full h-full object-cover" style="object-position: 50% 20%;" onerror="this.src='https://placehold.co/400x500/FDF0F4/2D1527?text=Chinju'">
         </div>
+        <!-- Sparkle Badge -->
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white border border-gold/40 text-plum font-serif text-xs px-4 py-1 rounded-full shadow-sm whitespace-nowrap">
+          Happy Birthday 💕
+        </span>
+      </div>
 
-        <h3 class="text-3xl font-syne font-extrabold gold-gradient-text mb-8">
-          Happy Birthday, you absolute legend! 🎉
-        </h3>
+      <!-- MAIN HEADING -->
+      <h1 class="font-serif text-3xl sm:text-4xl font-extrabold shimmer-gold mb-4 leading-tight">
+        Happy Birthday,<br>Chinju! ✨
+      </h1>
 
-        <button onclick="revealGrandFinale()" class="px-8 py-4 rounded-xl bg-gradient-to-r from-gold via-hotpink to-electricpurple text-white font-syne font-black text-lg tracking-widest shadow-2xl hover:scale-105 transition">
-          ENTER GRAND FINALE 🎉
+      <!-- HEARTFELT MESSAGE -->
+      <div class="space-y-4 text-softplum text-sm sm:text-base leading-relaxed font-light mb-8 px-2">
+        <p>
+          Wishing you a year filled with endless laughter, peaceful moments, radiant health, and all the happiness your heart can hold.
+        </p>
+        <p class="font-serif italic text-plum font-medium">
+          "May every day bring new reasons to smile and shine just as brightly as you always do."
+        </p>
+        <p class="text-xs text-softplum/80">
+          Have the most wonderful and joyous birthday! 🌸👑
+        </p>
+      </div>
+
+      <!-- INTERACTIVE WISH BUTTON -->
+      <div class="flex flex-col items-center gap-3">
+        <button id="wishBtn" onclick="makeAWish(event)" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-gold via-champagne to-deepgold text-plum font-serif font-bold text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-98 transition-all duration-300 flex items-center justify-center gap-2">
+          <span>Make a Wish ✨</span>
+        </button>
+
+        <!-- Replay Animation Button -->
+        <button onclick="closeGreetingCard()" class="text-xs text-softplum/60 hover:text-plum font-light underline underline-offset-4 mt-2">
+          Close & view envelope again
         </button>
       </div>
 
-
-      <!-- Stage 2: Grand Finale Banner & Kept Actions (Hidden initially) -->
-      <div id="grandFinaleStage" class="hidden w-full flex-col items-center">
-        
-        <div class="relative w-48 h-48 md:w-56 md:h-56 rounded-full p-2 bg-gradient-to-tr from-gold via-hotpink to-electricpurple shadow-2xl mb-6 animate-pulse-glow">
-          <div class="w-full h-full rounded-full overflow-hidden border-4 border-void">
-            <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" class="chinju-img target-photo" id="photo-s8">
-          </div>
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 text-4xl">👑</div>
-        </div>
-
-        <h1 class="text-4xl md:text-6xl font-syne font-black gold-gradient-text tracking-tight mb-2">
-          HAPPY 38th BIRTHDAY!
-        </h1>
-        <h2 class="text-xl md:text-3xl font-syne font-extrabold text-hotpink tracking-widest uppercase mb-4">
-          CHINJU 🥳
-        </h2>
-
-        <p class="font-mono text-sm text-yellow-200 bg-white/5 border border-gold/30 px-6 py-2 rounded-full mb-8">
-          38 YEARS DOWN. STILL NO MATURITY UPDATE IN SIGHT.
-        </p>
-
-        <!-- Final 3 Action Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 w-full justify-center max-w-md">
-          <button onclick="goToScene(1)" class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 font-mono text-xs font-bold transition flex items-center justify-center gap-2">
-            🔄 REPLAY THE ROAST
-          </button>
-          <button onclick="downloadScreenshot()" class="px-6 py-3 rounded-xl bg-electricpurple hover:bg-purple-600 font-mono text-xs font-bold transition flex items-center justify-center gap-2 text-white">
-            📸 TAKE A SCREENSHOT
-          </button>
-          <button onclick="shareMadness()" class="px-6 py-3 rounded-xl bg-hotpink hover:bg-pink-600 font-mono text-xs font-bold transition flex items-center justify-center gap-2 text-white">
-            📲 SHARE THE MADNESS
-          </button>
-        </div>
-
-      </div>
-
-    </section>
+    </div>
 
   </main>
 
+  <!-- WISH TOAST NOTIFICATION MODAL -->
+  <div id="wishToast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-plum text-cream px-6 py-3 rounded-full text-xs sm:text-sm font-serif border border-gold/40 shadow-2xl transition-all duration-500 opacity-0 transform translate-y-6 pointer-events-none flex items-center gap-2">
+    <span>💖</span>
+    <span>May all your sweet birthday wishes come true today and always!</span>
+  </div>
+
   <!-- FOOTER -->
-  <footer class="w-full py-4 text-center border-t border-white/5 font-mono text-[11px] text-gray-500 z-20">
-    CHINJU LEVEL 38 ROAST SYSTEM • NO INJURIES REPORTED • BUILT WITH SAVAGE LOVE ❤️
+  <footer class="w-full text-center py-2 text-[11px] font-serif text-softplum/50 z-20">
+    Designed with warmth & love for Chinju • Happy Birthday! 💐
   </footer>
 
 
-  <!-- JAVASCRIPT LOGIC & AUDIO ENGINE -->
+  <!-- JAVASCRIPT & AUDIO ENGINE -->
   <script>
-    // Global State
-    let currentScene = 1;
-    let audioEnabled = false;
+    // Audio State & Synthesizer
     let audioCtx = null;
-    let droneOsc = null;
-    let currentPhotoUrl = 'PHOTO-2026-08-20-14-45-35.jpg';
-    let quizCurrentIdx = 0;
-    let quizAnswers = [];
+    let isMuted = true;
+    let isOpened = false;
 
-    // Quiz Questions Data
-    const quizQuestions = [
-      {
-        q: "1. Someone calls you 'Aunty' in public. What is your instant reaction?",
-        options: [
-          { text: "Instant emotional damage & death stare 💀", score: 25 },
-          { text: "Pretend I didn't hear them and walk faster 🚶‍♀️", score: 15 },
-          { text: "Politely correct them: 'It's Didi / Chechi!' 💅", score: 35 }
-        ]
-      },
-      {
-        q: "2. Choose your absolute ideal Friday night:",
-        options: [
-          { text: "Party till 5 AM with energy drinks 🍹", score: 10 },
-          { text: "In bed sleeping by 9:00 PM sharp 💤", score: 38 },
-          { text: "Cancel all plans and stay home in pajamas 🛌", score: 30 }
-        ]
-      },
-      {
-        q: "3. Your physical body at age 38 feels like:",
-        options: [
-          { text: "Ready for an extreme mountain trek 🧗‍♀️", score: 15 },
-          { text: "Needs 10 minutes of stretching before standing 🧘‍♀️", score: 35 },
-          { text: "Already submitting paperwork for early retirement 👵", score: 40 }
-        ]
-      },
-      {
-        q: "4. Deep inside, how old do you genuinely feel?",
-        options: [
-          { text: "18 (Living in pure delusion) ✨", score: 18 },
-          { text: "25 (Prime drama age) 💄", score: 25 },
-          { text: "38 (Honest, but legally unacceptable) 📜", score: 38 }
-        ]
+    // Toggle Audio
+    function toggleMusic() {
+      if (!audioCtx) {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
       }
-    ];
-
-    // Initialize App Stepper & Photo Defaults on Load
-    window.onload = function() {
-      initStepper();
-      renderCandles();
-      loadQuizQuestion(0);
-      setupDragAndDrop();
-    };
-
-    // Stepper Navigation Initialization
-    function initStepper() {
-      const container = document.getElementById('stepperContainer');
-      container.innerHTML = '';
-      for(let i = 1; i <= 8; i++) {
-        const dot = document.createElement('button');
-        dot.className = `w-7 h-7 rounded-full flex items-center justify-center font-mono text-xs transition ${i === 1 ? 'bg-hotpink text-white font-bold' : 'bg-white/10 text-gray-400 hover:bg-white/20'}`;
-        dot.innerText = i;
-        dot.onclick = () => goToScene(i);
-        dot.id = `stepper-dot-${i}`;
-        container.appendChild(dot);
-      }
-    }
-
-    function updateStepper(sceneNum) {
-      for(let i = 1; i <= 8; i++) {
-        const dot = document.getElementById(`stepper-dot-${i}`);
-        if(dot) {
-          if(i === sceneNum) {
-            dot.className = 'w-7 h-7 rounded-full flex items-center justify-center font-mono text-xs bg-hotpink text-white font-bold shadow-md shadow-hotpink/50 scale-110';
-          } else if(i < sceneNum) {
-            dot.className = 'w-7 h-7 rounded-full flex items-center justify-center font-mono text-xs bg-electricpurple/50 text-white';
-          } else {
-            dot.className = 'w-7 h-7 rounded-full flex items-center justify-center font-mono text-xs bg-white/10 text-gray-400 hover:bg-white/20';
-          }
-        }
-      }
-      const mobileSelect = document.getElementById('mobileSceneSelector');
-      if(mobileSelect) mobileSelect.value = sceneNum;
-    }
-
-    // Scene Navigation Engine
-    function goToScene(num) {
-      if(num < 1 || num > 8) return;
-      
-      const currentEl = document.getElementById(`scene-${currentScene}`);
-      const nextEl = document.getElementById(`scene-${num}`);
-
-      if(currentEl) {
-        currentEl.style.opacity = '0';
-        currentEl.style.transform = 'translateY(-15px)';
-        setTimeout(() => {
-          currentEl.classList.remove('active');
-          if(nextEl) {
-            nextEl.classList.add('active');
-            setTimeout(() => {
-              nextEl.style.opacity = '1';
-              nextEl.style.transform = 'translateY(0)';
-            }, 50);
-          }
-        }, 300);
-      }
-
-      currentScene = num;
-      updateStepper(num);
-      playFX('whoosh');
-
-      // Audio scene dynamics
-      if(num === 1 && audioEnabled) startDrone();
-      else stopDrone();
-
-      // Scene 8 Theme Shift (Warm Champagne Gold)
-      const body = document.getElementById('appBody');
-      if(num === 8) {
-        body.classList.remove('bg-void');
-        body.classList.add('bg-gradient-to-b', 'from-amber-950', 'via-purple-950', 'to-void');
-        triggerConfettiBurst();
-      } else {
-        body.className = "bg-void text-white font-sans antialiased min-h-screen flex flex-col justify-between overflow-x-hidden relative selection:bg-hotpink selection:text-white transition-colors duration-1000";
-      }
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function jumpToScene(num) {
-      goToScene(num);
-    }
-
-    // WEB AUDIO API SYNTHESIZER ENGINE (Zero External Sound Files)
-    function initAudioContext() {
-      if(!audioCtx) {
-        const AudioCtx = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioCtx();
-      }
-      if(audioCtx.state === 'suspended') {
+      if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
-    }
 
-    function toggleAudio() {
-      initAudioContext();
-      audioEnabled = !audioEnabled;
-      const label = document.getElementById('audioLabel');
+      isMuted = !isMuted;
       const icon = document.getElementById('audioIcon');
+      const text = document.getElementById('audioText');
 
-      if(audioEnabled) {
-        if(label) label.innerText = 'SOUND: ON';
-        if(icon) icon.innerText = '🔊';
-        if(currentScene === 1) startDrone();
-        playFX('beep');
+      if (!isMuted) {
+        icon.innerText = '🔊';
+        text.innerText = 'Music Box: On';
+        playMusicBoxTune();
       } else {
-        if(label) label.innerText = 'SOUND: OFF';
-        if(icon) icon.innerText = '🔇';
-        stopDrone();
+        icon.innerText = '🔇';
+        text.innerText = 'Music Box: Off';
       }
     }
 
-    function playFX(type) {
-      if(!audioEnabled) return;
-      initAudioContext();
-
-      const now = audioCtx.currentTime;
-
-      if(type === 'siren') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(400, now);
-        osc.frequency.linearRampToValueAtTime(800, now + 0.3);
-        osc.frequency.linearRampToValueAtTime(400, now + 0.6);
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.6);
-      } else if(type === 'flip' || type === 'beep') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(600, now);
-        osc.frequency.exponentialRampToValueAtTime(1200, now + 0.1);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.1);
-      } else if(type === 'whoosh') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(150, now);
-        osc.frequency.exponentialRampToValueAtTime(40, now + 0.2);
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.2);
-      } else if(type === 'scan') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(800, now);
-        osc.frequency.setValueAtTime(1000, now + 0.05);
-        gain.gain.setValueAtTime(0.05, now);
-        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.15);
-      }
-    }
-
-    function startDrone() {
-      if(!audioEnabled || droneOsc) return;
-      initAudioContext();
-      droneOsc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      droneOsc.type = 'sawtooth';
-      droneOsc.frequency.setValueAtTime(55, audioCtx.currentTime); // Low A drone
-      gain.gain.setValueAtTime(0.03, audioCtx.currentTime);
-      droneOsc.connect(gain);
-      gain.connect(audioCtx.destination);
-      droneOsc.start();
-    }
-
-    function stopDrone() {
-      if(droneOsc) {
-        droneOsc.stop();
-        droneOsc = null;
-      }
-    }
-
-    // Play Synthesized Birthday Melody
-    function playBirthdaySong() {
-      if(!audioEnabled) return;
-      initAudioContext();
+    // Gentle Synthesized Music Box Melody (Happy Birthday)
+    function playMusicBoxTune() {
+      if (isMuted || !audioCtx) return;
 
       const notes = [
-        { f: 261.63, d: 0.3 }, { f: 261.63, d: 0.3 }, { f: 293.66, d: 0.6 }, { f: 261.63, d: 0.6 },
-        { f: 349.23, d: 0.6 }, { f: 329.63, d: 1.0 },
-        { f: 261.63, d: 0.3 }, { f: 261.63, d: 0.3 }, { f: 293.66, d: 0.6 }, { f: 261.63, d: 0.6 },
-        { f: 392.00, d: 0.6 }, { f: 349.23, d: 1.0 }
+        { f: 523.25, d: 0.35 }, { f: 523.25, d: 0.35 }, { f: 587.33, d: 0.7 }, { f: 523.25, d: 0.7 },
+        { f: 698.46, d: 0.7 }, { f: 659.25, d: 1.2 },
+        { f: 523.25, d: 0.35 }, { f: 523.25, d: 0.35 }, { f: 587.33, d: 0.7 }, { f: 523.25, d: 0.7 },
+        { f: 783.99, d: 0.7 }, { f: 698.46, d: 1.2 }
       ];
 
-      let t = audioCtx.currentTime + 0.1;
+      let now = audioCtx.currentTime + 0.1;
+
       notes.forEach(n => {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
+
+        // Music box bell-like sine overtone
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(n.f, t);
-        gain.gain.setValueAtTime(0.15, t);
-        gain.gain.exponentialRampToValueAtTime(0.001, t + n.d);
+        osc.frequency.setValueAtTime(n.f, now);
+
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + n.d);
+
         osc.connect(gain);
         gain.connect(audioCtx.destination);
-        osc.start(t);
-        osc.stop(t + n.d);
-        t += n.d + 0.05;
+
+        osc.start(now);
+        osc.stop(now + n.d);
+
+        now += n.d + 0.08;
       });
     }
 
-    // PHOTO UPLOAD ENGINE & DRAG & DROP
+    // OPEN GREETING CARD ACTION
+    function openGreetingCard() {
+      if (isOpened) return;
+      isOpened = true;
+
+      const envelope = document.getElementById('envelopeSection');
+      const card = document.getElementById('cardSection');
+
+      // Play soft chime sound
+      if (!isMuted) playMusicBoxTune();
+
+      // Launch pastel & gold confetti
+      triggerCelebrationConfetti();
+
+      // Animate transition
+      envelope.style.opacity = '0';
+      envelope.style.transform = 'scale(0.9) translateY(-20px)';
+
+      setTimeout(() => {
+        envelope.classList.add('hidden');
+        card.classList.remove('hidden');
+        
+        setTimeout(() => {
+          card.classList.remove('opacity-0', 'translate-y-8');
+          card.classList.add('opacity-100', 'translate-y-0');
+        }, 50);
+      }, 500);
+    }
+
+    // CLOSE CARD (Return to Envelope)
+    function closeGreetingCard() {
+      isOpened = false;
+      const envelope = document.getElementById('envelopeSection');
+      const card = document.getElementById('cardSection');
+
+      card.classList.remove('opacity-100', 'translate-y-0');
+      card.classList.add('opacity-0', 'translate-y-8');
+
+      setTimeout(() => {
+        card.classList.add('hidden');
+        envelope.classList.remove('hidden');
+        
+        setTimeout(() => {
+          envelope.style.opacity = '1';
+          envelope.style.transform = 'scale(1) translateY(0)';
+        }, 50);
+      }, 500);
+    }
+
+    // MAKE A WISH INTERACTION
+    function makeAWish(e) {
+      // Confetti burst
+      triggerCelebrationConfetti();
+
+      // Create floating heart particles near button click
+      const rect = e.target.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top;
+
+      for (let i = 0; i < 8; i++) {
+        createHeartParticle(x + (Math.random() * 60 - 30), y);
+      }
+
+      // Show warm wish toast
+      const toast = document.getElementById('wishToast');
+      toast.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
+      }, 4000);
+    }
+
+    // Floating Hearts Engine
+    function createHeartParticle(x, y) {
+      const heart = document.createElement('div');
+      heart.className = 'heart-particle text-lg z-50';
+      const emojis = ['💖', '✨', '🌸', '👑', '💛'];
+      heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 3000);
+    }
+
+    // Celebration Canvas Confetti
+    function triggerCelebrationConfetti() {
+      if (window.confetti) {
+        window.confetti({
+          particleCount: 80,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#D4AF37', '#F3E5AB', '#FDF0F4', '#E6C594', '#2D1527']
+        });
+      }
+    }
+
+    // Handle Custom Photo Upload
     function handlePhotoUpload(e) {
       const file = e.target.files[0];
-      if(file) processFile(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          document.getElementById('chinjuPhoto').src = evt.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
     }
 
-    function processFile(file) {
-      const reader = new FileReader();
-      reader.onload = function(event) {
-        currentPhotoUrl = event.target.result;
-        updateAllPhotos(currentPhotoUrl);
-      };
-      reader.readAsDataURL(file);
+    // Background Bokeh Sparkle Canvas
+    const canvas = document.getElementById('bokehCanvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
 
-    function updateAllPhotos(url) {
-      const imgElements = document.querySelectorAll('.target-photo');
-      imgElements.forEach(img => {
-        img.src = url;
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.radius = Math.random() * 2 + 1;
+        this.alpha = Math.random() * 0.5 + 0.2;
+        this.speed = Math.random() * 0.4 + 0.1;
+      }
+      update() {
+        this.y -= this.speed;
+        if (this.y < 0) this.reset();
+      }
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+        ctx.fill();
+      }
+    }
+
+    for (let i = 0; i < 40; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateBokeh() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
       });
+      requestAnimationFrame(animateBokeh);
     }
 
-    function setupDragAndDrop() {
-      window.addEventListener('dragover', e => e.preventDefault());
-      window.addEventListener('drop', e => {
-        e.preventDefault();
-        if(e.dataTransfer.files && e.dataTransfer.files[0]) {
-          processFile(e.dataTransfer.files[0]);
-        }
-      });
-    }
-
-    // SCENE 2 LOGIC
-    function handleVerificationChoice(isDelusional) {
-      const feedback = document.getElementById('verificationFeedback');
-      const nextBtn = document.getElementById('scene2NextBtn');
-      feedback.classList.remove('hidden');
-
-      if(isDelusional) {
-        playFX('siren');
-        feedback.className = 'mt-6 p-4 rounded-xl font-mono text-xs border border-neonred bg-neonred/20 text-red-200 block animate-bounce';
-        feedback.innerHTML = '🚨 <strong>DELUSION DETECTED!</strong> ERROR 404: Youth Not Found. Nice try, Aunty—your knees already snitched on you!';
-      } else {
-        playFX('beep');
-        feedback.className = 'mt-6 p-4 rounded-xl font-mono text-xs border border-gold bg-gold/20 text-yellow-200 block';
-        feedback.innerHTML = '🏆 <strong>ACCEPTANCE BADGE UNLOCKED!</strong> Acceptance is the first crucial step toward claiming senior citizen discounts.';
-      }
-
-      nextBtn.classList.remove('hidden');
-    }
-
-    // SCENE 3 ROAST CARDS FLIP LOGIC
-    let revealedRoasts = new Set();
-    function flipRoastCard(cardEl, id) {
-      const inner = cardEl.querySelector('.card-inner');
-      inner.classList.toggle('rotate-y-180');
-      playFX('flip');
-
-      revealedRoasts.add(id);
-      const counter = document.getElementById('roastCounter');
-      if(counter) counter.innerText = `${revealedRoasts.size} / 6 CARDS REVEALED`;
-
-      if(revealedRoasts.size === 6) {
-        triggerConfettiBurst();
-      }
-    }
-
-    // SCENE 4 AWARDS MODAL LOGIC
-    const awardsData = {
-      1: { title: "Lifetime Achievement in Being Dramatic", emoji: "🏆", desc: "Awarded for turning minor inconvenience into an Oscar-worthy, high-voltage tragedy." },
-      2: { title: "World's Most Experienced Overthinker", emoji: "🧠", desc: "Awarded for analyzing a 3-word text message for 6 consecutive hours." },
-      3: { title: "Professional Excuse Generator", emoji: "📝", desc: "Awarded for canceling plans with 100% believable, highly detailed excuses." },
-      4: { title: "CEO of Unnecessary Drama", emoji: "👑", desc: "Unanimously elected by friends, family, and helpless bystanders." },
-      5: { title: "Still Gorgeous Despite System Ageing", emoji: "✨", desc: "Awarded for looking stunning in a Kerala kasavu saree even at Level 38." },
-      6: { title: "Best Actress in Pretending to Be Young", emoji: "🎭", desc: "Awarded for using gen-Z slang with absolute confidence." }
-    };
-
-    function openAwardModal(id) {
-      playFX('beep');
-      const data = awardsData[id];
-      if(data) {
-        document.getElementById('modalTitle').innerText = data.title;
-        document.getElementById('modalEmoji').innerText = data.emoji;
-        document.getElementById('modalDesc').innerText = data.desc;
-        document.getElementById('awardModal').classList.remove('hidden');
-      }
-    }
-
-    function closeAwardModal() {
-      playFX('whoosh');
-      document.getElementById('awardModal').classList.add('hidden');
-    }
-
-    // SCENE 5 QUIZ ENGINE LOGIC
-    function loadQuizQuestion(idx) {
-      const box = document.getElementById('quizQuestionBox');
-      const q = quizQuestions[idx];
-      const progressBar = document.getElementById('quizProgressBar');
-      progressBar.style.width = `${((idx + 1) / quizQuestions.length) * 100}%`;
-
-      let html = `
-        <h3 class="text-lg font-syne font-bold mb-4">${q.q}</h3>
-        <div class="space-y-3">
-      `;
-
-      q.options.forEach((opt, oIdx) => {
-        html += `
-          <button onclick="selectQuizAnswer(${idx}, ${opt.score})" class="w-full text-left p-4 rounded-xl bg-white/5 hover:bg-hotpink/20 border border-white/10 hover:border-hotpink font-mono text-xs transition duration-200">
-            ${opt.text}
-          </button>
-        `;
-      });
-
-      html += `</div>`;
-      box.innerHTML = html;
-    }
-
-    function selectQuizAnswer(qIdx, score) {
-      playFX('beep');
-      quizAnswers[qIdx] = score;
-
-      if(qIdx + 1 < quizQuestions.length) {
-        quizCurrentIdx = qIdx + 1;
-        loadQuizQuestion(quizCurrentIdx);
-      } else {
-        finishQuiz();
-      }
-    }
-
-    function finishQuiz() {
-      document.getElementById('quizQuestionBox').classList.add('hidden');
-      document.getElementById('quizResultBox').classList.remove('hidden');
-
-      const total = quizAnswers.reduce((a, b) => a + b, 0);
-      document.getElementById('scoreMental').innerText = Math.max(16, Math.round(total * 0.3));
-      document.getElementById('scoreSpine').innerText = Math.min(85, Math.round(total * 0.85));
-      document.getElementById('scoreDrama').innerText = '999%';
-
-      playFX('siren');
-      triggerConfettiBurst();
-    }
-
-    function resetQuiz() {
-      quizAnswers = [];
-      quizCurrentIdx = 0;
-      document.getElementById('quizResultBox').classList.add('hidden');
-      document.getElementById('quizQuestionBox').classList.remove('hidden');
-      loadQuizQuestion(0);
-    }
-
-    // SCENE 7 BIRTHDAY CAKE & CANDLE BLOW LOGIC
-    function renderCandles() {
-      const container = document.getElementById('candlesContainer');
-      container.innerHTML = '';
-      for(let i = 0; i < 10; i++) {
-        const candle = document.createElement('div');
-        candle.className = 'relative flex flex-col items-center';
-        candle.innerHTML = `
-          <div class="flame w-2.5 h-4 bg-gradient-to-t from-yellow-500 via-orange-400 to-yellow-200 rounded-full animate-flicker shadow-md shadow-orange-500"></div>
-          <div class="w-1.5 h-10 bg-gradient-to-b from-white to-pink-200 rounded-t-sm"></div>
-        `;
-        container.appendChild(candle);
-      }
-    }
-
-    function blowCandles() {
-      playFX('whoosh');
-      const flames = document.querySelectorAll('.flame');
-      flames.forEach(f => {
-        // Create smoke puff before hiding
-        const smoke = document.createElement('div');
-        smoke.className = 'smoke';
-        f.parentNode.appendChild(smoke);
-        f.style.display = 'none';
-      });
-
-      document.getElementById('blowBtn').classList.add('hidden');
-      document.getElementById('wishSubmittedText').classList.remove('hidden');
-      document.getElementById('scene7NextBtn').classList.remove('hidden');
-
-      playBirthdaySong();
-      triggerConfettiBurst();
-    }
-
-    // SCENE 8 GRAND FINALE LOGIC
-    function revealGrandFinale() {
-      playFX('beep');
-      document.getElementById('emotionalStage').classList.add('hidden');
-      document.getElementById('grandFinaleStage').classList.remove('hidden');
-      document.getElementById('grandFinaleStage').classList.add('flex');
-      triggerConfettiBurst();
-    }
-
-    // FULLSCREEN CANVAS CONFETTI & PARTICLES ENGINE
-    function triggerConfettiBurst() {
-      if(window.confetti) {
-        window.confetti({
-          particleCount: 120,
-          spread: 80,
-          origin: { y: 0.6 },
-          colors: ['#FF1E8A', '#8A2BE2', '#FFD700', '#FF2A3C']
-        });
-      }
-    }
-
-    // SCREENSHOT & SHARING UTILITIES
-    function downloadScreenshot() {
-      playFX('beep');
-      const target = document.getElementById('grandFinaleStage');
-      if(window.html2canvas && target) {
-        html2canvas(target, { backgroundColor: '#09060E' }).then(canvas => {
-          const link = document.createElement('a');
-          link.download = 'Chinju_Level_38_Roast.png';
-          link.href = canvas.toDataURL();
-          link.click();
-        }).catch(err => {
-          fallbackCanvasPoster();
-        });
-      } else {
-        fallbackCanvasPoster();
-      }
-    }
-
-    function fallbackCanvasPoster() {
-      const canvas = document.createElement('canvas');
-      canvas.width = 800;
-      canvas.height = 600;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#09060E';
-      ctx.fillRect(0, 0, 800, 600);
-      ctx.fillStyle = '#FFD700';
-      ctx.font = 'bold 36px sans-serif';
-      ctx.fillText('HAPPY 38th BIRTHDAY CHINJU!', 150, 250);
-      ctx.fillStyle = '#FF1E8A';
-      ctx.font = '20px monospace';
-      ctx.fillText('38 YEARS DOWN. STILL NO MATURITY UPDATE.', 160, 320);
-
-      const link = document.createElement('a');
-      link.download = 'Chinju_38_Poster.png';
-      link.href = canvas.toDataURL();
-      link.click();
-    }
-
-    function shareMadness() {
-      playFX('beep');
-      const shareData = {
-        title: 'CHINJU LEVEL 38 ROAST',
-        text: 'Chinju has officially reached Level 38! Maturity levels remain suspiciously low.',
-        url: window.location.href
-      };
-
-      if(navigator.share) {
-        navigator.share(shareData).catch(() => {});
-      } else {
-        // Fallback to clipboard copy
-        const dummy = document.createElement('input');
-        document.body.appendChild(dummy);
-        dummy.value = window.location.href;
-        dummy.select();
-        document.execCommand('copy');
-        document.body.removeChild(dummy);
-        alert('Link copied to clipboard! Share the madness with Chinju! 🥳');
-      }
-    }
+    animateBokeh();
   </script>
-
 </body>
 </html>
