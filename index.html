@@ -17,14 +17,14 @@
       theme: {
         extend: {
           colors: {
-            cream: '#FFFDF7',
-            blush: '#FDF0F4',
-            softpink: '#F8E1EB',
-            champagne: '#E6C594',
-            gold: '#D4AF37',
-            deepgold: '#B88E28',
-            plum: '#2D1527',
-            softplum: '#542C4C'
+            magenta: '#FF007F',
+            coral: '#FF6B6B',
+            marigold: '#FFB800',
+            teal: '#00C9A7',
+            violet: '#6C5CE7',
+            softpurple: '#4A154B',
+            cream: '#FFFDF0',
+            gold: '#FFD700'
           },
           fontFamily: {
             serif: ['Playfair Display', 'serif'],
@@ -39,18 +39,32 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    /* Global Styles & Animations */
+    /* Global Festive Gradient Styles & Animations */
     body {
-      background: radial-gradient(circle at 50% 30%, #FFFDF7 0%, #FDF0F4 60%, #F6E2EC 100%);
+      background: radial-gradient(circle at 20% 20%, #FFF0F5 0%, #FFE4E1 30%, #FFF8DC 60%, #E6E6FA 85%, #E0F7FA 100%);
       font-family: 'Plus Jakarta Sans', sans-serif;
       color: #2D1527;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
-    /* Shimmering Gold Text Effect */
+    /* Vibrant Rainbow Shimmer Text Effect */
+    .shimmer-rainbow {
+      background: linear-gradient(90deg, #FF007F, #FF6B6B, #FFB800, #00C9A7, #6C5CE7, #FF007F);
+      background-size: 300% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: rainbowShift 5s linear infinite;
+    }
+
+    @keyframes rainbowShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
+    }
+
+    /* Shimmering Gold Accent */
     .shimmer-gold {
-      background: linear-gradient(135deg, #B88E28 0%, #F3E5AB 25%, #D4AF37 50%, #AA7C11 75%, #F3E5AB 100%);
+      background: linear-gradient(135deg, #FFD700 0%, #FFF4B8 25%, #FFB800 50%, #D4AF37 75%, #FFF4B8 100%);
       background-size: 200% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -67,36 +81,26 @@
       perspective: 2000px;
     }
 
-    .envelope-flap {
-      transform-origin: top center;
-      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      transform-style: preserve-3d;
-    }
-
-    .envelope-flap.open {
-      transform: rotateX(180deg);
-    }
-
     .card-slide {
       transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.8s ease;
     }
 
-    /* Soft Glow Border */
-    .gold-glow {
-      box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.25), 0 0 20px rgba(248, 225, 235, 0.6);
+    /* Vibrant Multi-Color Glow Border */
+    .festive-glow {
+      box-shadow: 0 15px 50px -10px rgba(255, 0, 127, 0.3), 0 0 30px rgba(0, 201, 167, 0.25), 0 0 20px rgba(255, 184, 0, 0.3);
     }
 
     /* Floating Animations */
     .float-gentle {
-      animation: float 5s ease-in-out infinite;
+      animation: float 4s ease-in-out infinite;
     }
 
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-10px) rotate(1deg); }
+      50% { transform: translateY(-12px) rotate(1.5deg); }
     }
 
-    /* Floating Heart Particles */
+    /* Floating Heart/Sparkle Particles */
     .heart-particle {
       position: absolute;
       pointer-events: none;
@@ -105,36 +109,53 @@
 
     @keyframes heartRise {
       0% { opacity: 1; transform: translateY(0) scale(0.6) rotate(0deg); }
-      100% { opacity: 0; transform: translateY(-120px) scale(1.4) rotate(25deg); }
+      100% { opacity: 0; transform: translateY(-130px) scale(1.5) rotate(30deg); }
     }
 
-    /* Photo Framed Arc */
-    .photo-arch {
-      border-radius: 120px 120px 24px 24px;
+    /* Floating Balloons Background Element */
+    .balloon {
+      position: fixed;
+      bottom: -100px;
+      opacity: 0.85;
+      pointer-events: none;
+      animation: floatUp 12s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.85; }
+      100% { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
     }
   </style>
 </head>
 <body class="flex flex-col justify-between items-center relative min-h-screen p-4 sm:p-8">
 
-  <!-- Background Canvas for Bokeh / Sparkles -->
+  <!-- Floating Ambient Balloons -->
+  <div class="balloon text-4xl left-[8%]" style="animation-delay: 0s; animation-duration: 11s;">🎈</div>
+  <div class="balloon text-5xl left-[22%]" style="animation-delay: 3s; animation-duration: 13s;">🎈</div>
+  <div class="balloon text-4xl left-[45%]" style="animation-delay: 1.5s; animation-duration: 10s;">🎈</div>
+  <div class="balloon text-5xl left-[68%]" style="animation-delay: 4.5s; animation-duration: 14s;">🎈</div>
+  <div class="balloon text-4xl left-[85%]" style="animation-delay: 2s; animation-duration: 12s;">🎈</div>
+
+  <!-- Background Canvas for Multi-colored Sparkles -->
   <canvas id="bokehCanvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
 
   <!-- Top Utilities Header -->
   <header class="w-full max-w-4xl flex justify-between items-center z-30 mb-4">
-    <div class="flex items-center gap-2">
-      <span class="w-2 h-2 rounded-full bg-gold animate-ping"></span>
-      <span class="font-serif italic text-sm tracking-wide text-softplum opacity-80">For Chinju ✨</span>
+    <div class="flex items-center gap-2 bg-white/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-pink-200/60 shadow-sm">
+      <span class="w-2.5 h-2.5 rounded-full bg-magenta animate-ping"></span>
+      <span class="font-serif italic text-sm tracking-wide text-softpurple font-semibold">For Chinju 🎉✨</span>
     </div>
 
     <div class="flex items-center gap-3">
       <!-- Music Box Toggle Button -->
-      <button id="audioBtn" onclick="toggleMusic()" class="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-gold/30 text-xs text-softplum hover:border-gold hover:bg-white shadow-sm transition-all duration-300">
+      <button id="audioBtn" onclick="toggleMusic()" class="flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-marigold/50 text-xs text-softpurple hover:border-magenta hover:bg-white shadow-md transition-all duration-300">
         <span id="audioIcon">🎵</span>
         <span id="audioText" class="font-medium">Music Box: Off</span>
       </button>
 
       <!-- Change Photo Option -->
-      <label class="cursor-pointer px-3.5 py-1.5 rounded-full bg-white/80 backdrop-blur-md border border-pink-200 text-xs text-softplum hover:bg-white shadow-sm transition-all duration-300">
+      <label class="cursor-pointer px-4 py-1.5 rounded-full bg-gradient-to-r from-magenta/10 via-coral/10 to-marigold/10 backdrop-blur-md border border-magenta/30 text-xs text-softpurple hover:bg-white shadow-md transition-all duration-300">
         <span>📸 Change Photo</span>
         <input type="file" accept="image/*" class="hidden" onchange="handlePhotoUpload(event)">
       </label>
@@ -149,37 +170,37 @@
     <!-- =================================================================== -->
     <div id="envelopeSection" class="w-full flex flex-col items-center perspective-2000 transition-all duration-700">
       
-      <!-- Envelope Body -->
-      <div class="relative w-full max-w-md bg-gradient-to-b from-cream to-blush rounded-3xl p-6 sm:p-8 border-2 border-gold/40 gold-glow text-center float-gentle cursor-pointer group" onclick="openGreetingCard()">
+      <!-- Envelope Body with Festive Gradients -->
+      <div class="relative w-full max-w-md bg-gradient-to-br from-cream via-pink-50 to-amber-50 rounded-3xl p-7 sm:p-9 border-2 border-magenta/40 festive-glow text-center float-gentle cursor-pointer group" onclick="openGreetingCard()">
         
-        <!-- Shimmering Accent Lines -->
-        <div class="absolute inset-2 border border-gold/20 rounded-2xl pointer-events-none"></div>
+        <!-- Shimmering Rainbow Accent Lines -->
+        <div class="absolute inset-2 border-2 border-dashed border-marigold/40 rounded-2xl pointer-events-none"></div>
 
-        <!-- Decorative Floral/Sparkle Header -->
-        <div class="text-3xl mb-3 opacity-90">🌸 ✨ 🌿</div>
+        <!-- Festive Icons Header -->
+        <div class="text-4xl mb-3 animate-bounce">🎈 🥳 💖 🎂</div>
         
         <!-- Envelope Title -->
-        <h2 class="font-serif text-xs uppercase tracking-[0.3em] text-gold font-semibold mb-2">Special Delivery</h2>
-        <h1 class="font-serif text-3xl sm:text-4xl text-plum font-bold mb-4">For Dearest Chinju</h1>
+        <h2 class="font-serif text-xs uppercase tracking-[0.35em] text-magenta font-bold mb-2">Special Birthday Delivery</h2>
+        <h1 class="font-serif text-3xl sm:text-4xl text-softpurple font-black mb-3">For Dearest Chinju</h1>
 
-        <p class="text-xs text-softplum/70 max-w-xs mx-auto mb-8 leading-relaxed font-light">
-          A heartfelt digital card crafted with warmth, love, and wishes just for you.
+        <p class="text-xs sm:text-sm text-softpurple/80 max-w-xs mx-auto mb-8 leading-relaxed font-medium">
+          A colorful greeting card packed with joy, laughter, and magical birthday wishes! 🌈✨
         </p>
 
-        <!-- Wax Seal Button -->
+        <!-- Wax Seal Button with Rainbow Glow -->
         <div class="relative inline-flex items-center justify-center">
-          <!-- Pulse Effect -->
-          <div class="absolute inset-0 rounded-full bg-gold/20 animate-ping"></div>
+          <!-- Multi-colored Pulse Effect -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-r from-magenta via-marigold to-teal opacity-40 animate-ping"></div>
           
           <!-- Seal Circle -->
-          <button class="relative w-20 h-20 rounded-full bg-gradient-to-br from-gold via-champagne to-deepgold text-plum font-serif text-2xl font-bold flex flex-col items-center justify-center shadow-lg border-2 border-white/60 group-hover:scale-105 transition-transform duration-300">
-            <span>✨</span>
-            <span class="text-[10px] font-sans font-semibold tracking-wider uppercase text-plum/90 mt-0.5">OPEN</span>
+          <button class="relative w-22 h-22 sm:w-24 sm:h-24 p-1 rounded-full bg-gradient-to-br from-magenta via-coral to-marigold text-white font-serif font-extrabold flex flex-col items-center justify-center shadow-xl border-2 border-white group-hover:scale-105 transition-transform duration-300">
+            <span class="text-2xl sm:text-3xl">🎁</span>
+            <span class="text-[11px] font-sans font-bold tracking-widest uppercase text-white mt-0.5">TAP TO OPEN</span>
           </button>
         </div>
 
-        <p class="text-[11px] text-gold font-medium mt-6 tracking-wide">
-          Tap seal to open card 💌
+        <p class="text-xs text-magenta font-semibold mt-6 tracking-wide">
+          Tap the gift to open your card! 💌✨
         </p>
       </div>
 
@@ -189,51 +210,54 @@
     <!-- =================================================================== -->
     <!-- STATE 2: INSIDE GREETING CARD (Initially Hidden) -->
     <!-- =================================================================== -->
-    <div id="cardSection" class="hidden w-full max-w-md bg-white/90 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-gold/30 gold-glow text-center card-slide opacity-0 transform translate-y-8 relative overflow-hidden">
+    <div id="cardSection" class="hidden w-full max-w-md bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border-2 border-magenta/30 festive-glow text-center card-slide opacity-0 transform translate-y-8 relative overflow-hidden">
       
-      <!-- Corner Decorative Patterns -->
-      <div class="absolute top-3 left-3 text-gold/40 text-sm">✦</div>
-      <div class="absolute top-3 right-3 text-gold/40 text-sm">✦</div>
-      <div class="absolute bottom-3 left-3 text-gold/40 text-sm">✦</div>
-      <div class="absolute bottom-3 right-3 text-gold/40 text-sm">✦</div>
+      <!-- Colorful Corner Decorative Sparkles -->
+      <div class="absolute top-3 left-3 text-magenta text-base font-bold animate-pulse">✦</div>
+      <div class="absolute top-3 right-3 text-marigold text-base font-bold animate-pulse">✨</div>
+      <div class="absolute bottom-3 left-3 text-teal text-base font-bold animate-pulse">✨</div>
+      <div class="absolute bottom-3 right-3 text-violet text-base font-bold animate-pulse">✦</div>
 
-      <!-- PORTRAIT FRAME -->
-      <div class="relative w-44 h-56 mx-auto mb-6 p-1.5 rounded-[100px] bg-gradient-to-b from-gold via-champagne to-gold/30 shadow-md">
-        <div class="w-full h-full rounded-[94px] overflow-hidden bg-blush border-2 border-white relative">
-          <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" id="chinjuPhoto" class="w-full h-full object-cover" style="object-position: 50% 20%;" onerror="this.src='https://placehold.co/400x500/FDF0F4/2D1527?text=Chinju'">
+      <!-- PORTRAIT FRAME WITH VIBRANT RAINBOW GRADIENT -->
+      <div class="relative w-44 h-56 mx-auto mb-6 p-1.5 rounded-[100px] bg-gradient-to-tr from-magenta via-marigold to-teal shadow-xl">
+        <div class="w-full h-full rounded-[94px] overflow-hidden bg-pink-50 border-2 border-white relative">
+          <img src="PHOTO-2026-08-20-14-45-35.jpg" alt="Chinju" id="chinjuPhoto" class="w-full h-full object-cover" style="object-position: 50% 20%;" onerror="this.src='https://placehold.co/400x500/FFF0F5/2D1527?text=Chinju'">
         </div>
-        <!-- Sparkle Badge -->
-        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-white border border-gold/40 text-plum font-serif text-xs px-4 py-1 rounded-full shadow-sm whitespace-nowrap">
-          Happy Birthday 💕
+        <!-- Sparkle Crown Badge -->
+        <span class="absolute -top-4 left-1/2 -translate-x-1/2 text-3xl drop-shadow-md">👑</span>
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 bg-gradient-to-r from-magenta to-coral text-white font-serif font-bold text-xs px-4 py-1 rounded-full shadow-md whitespace-nowrap">
+          Happy Birthday! 💕
         </span>
       </div>
 
-      <!-- MAIN HEADING -->
-      <h1 class="font-serif text-3xl sm:text-4xl font-extrabold shimmer-gold mb-4 leading-tight">
-        Happy Birthday,<br>Chinju! ✨
+      <!-- MAIN HEADING WITH RAINBOW SHimmer -->
+      <h1 class="font-serif text-3xl sm:text-4xl font-black shimmer-rainbow mb-4 leading-tight">
+        Happy Birthday,<br>Chinju! 🥳✨
       </h1>
 
       <!-- HEARTFELT MESSAGE -->
-      <div class="space-y-4 text-softplum text-sm sm:text-base leading-relaxed font-light mb-8 px-2">
-        <p>
-          Wishing you a year filled with endless laughter, peaceful moments, radiant health, and all the happiness your heart can hold.
+      <div class="space-y-4 text-softpurple text-sm sm:text-base leading-relaxed font-normal mb-8 px-2">
+        <p class="font-medium text-pink-900">
+          Wishing you a magnificent year filled with boundless joy, glowing health, gorgeous adventures, and all the happiness your beautiful heart desires! 🌸💖
         </p>
-        <p class="font-serif italic text-plum font-medium">
-          "May every day bring new reasons to smile and shine just as brightly as you always do."
-        </p>
-        <p class="text-xs text-softplum/80">
-          Have the most wonderful and joyous birthday! 🌸👑
+        <div class="py-2 px-4 rounded-2xl bg-gradient-to-r from-pink-100/70 via-amber-100/70 to-teal-100/70 border border-magenta/20 shadow-inner">
+          <p class="font-serif italic text-softpurple font-bold">
+            "May your day be as vibrant, warm, and extraordinary as you are!"
+          </p>
+        </div>
+        <p class="text-xs font-semibold text-magenta">
+          Keep smiling, shining bright, and celebrating every moment! 🎉🎂✨
         </p>
       </div>
 
       <!-- INTERACTIVE WISH BUTTON -->
       <div class="flex flex-col items-center gap-3">
-        <button id="wishBtn" onclick="makeAWish(event)" class="w-full py-3.5 px-6 rounded-full bg-gradient-to-r from-gold via-champagne to-deepgold text-plum font-serif font-bold text-sm tracking-wide shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-98 transition-all duration-300 flex items-center justify-center gap-2">
-          <span>Make a Wish ✨</span>
+        <button id="wishBtn" onclick="makeAWish(event)" class="w-full py-4 px-6 rounded-full bg-gradient-to-r from-magenta via-coral via-marigold to-teal text-white font-serif font-extrabold text-base tracking-wide shadow-lg hover:shadow-xl hover:scale-[1.03] active:scale-98 transition-all duration-300 flex items-center justify-center gap-2">
+          <span>Make a Wish ✨ 🎉</span>
         </button>
 
         <!-- Replay Animation Button -->
-        <button onclick="closeGreetingCard()" class="text-xs text-softplum/60 hover:text-plum font-light underline underline-offset-4 mt-2">
+        <button onclick="closeGreetingCard()" class="text-xs text-softpurple/70 hover:text-magenta font-medium underline underline-offset-4 mt-2">
           Close & view envelope again
         </button>
       </div>
@@ -243,14 +267,14 @@
   </main>
 
   <!-- WISH TOAST NOTIFICATION MODAL -->
-  <div id="wishToast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-plum text-cream px-6 py-3 rounded-full text-xs sm:text-sm font-serif border border-gold/40 shadow-2xl transition-all duration-500 opacity-0 transform translate-y-6 pointer-events-none flex items-center gap-2">
-    <span>💖</span>
-    <span>May all your sweet birthday wishes come true today and always!</span>
+  <div id="wishToast" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-gradient-to-r from-magenta via-violet to-softpurple text-white px-7 py-3.5 rounded-full text-xs sm:text-sm font-serif border-2 border-marigold/60 shadow-2xl transition-all duration-500 opacity-0 transform translate-y-6 pointer-events-none flex items-center gap-2.5">
+    <span class="text-lg">💖</span>
+    <span class="font-medium">May all your sweetest birthday wishes come true today and always! 🌈✨</span>
   </div>
 
   <!-- FOOTER -->
-  <footer class="w-full text-center py-2 text-[11px] font-serif text-softplum/50 z-20">
-    Designed with warmth & love for Chinju • Happy Birthday! 💐
+  <footer class="w-full text-center py-2 text-xs font-serif font-medium text-softpurple/70 z-20">
+    Designed with warmth, joy & vibrant colors for Chinju • Happy Birthday! 💐🥳
   </footer>
 
 
@@ -306,7 +330,7 @@
         osc.type = 'sine';
         osc.frequency.setValueAtTime(n.f, now);
 
-        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.setValueAtTime(0.14, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + n.d);
 
         osc.connect(gain);
@@ -330,7 +354,7 @@
       // Play soft chime sound
       if (!isMuted) playMusicBoxTune();
 
-      // Launch pastel & gold confetti
+      // Launch vibrant multi-colored confetti
       triggerCelebrationConfetti();
 
       // Animate transition
@@ -370,16 +394,16 @@
 
     // MAKE A WISH INTERACTION
     function makeAWish(e) {
-      // Confetti burst
+      // Vibrant Confetti burst
       triggerCelebrationConfetti();
 
-      // Create floating heart particles near button click
+      // Create floating heart and sparkle particles near button click
       const rect = e.target.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top;
 
-      for (let i = 0; i < 8; i++) {
-        createHeartParticle(x + (Math.random() * 60 - 30), y);
+      for (let i = 0; i < 12; i++) {
+        createHeartParticle(x + (Math.random() * 80 - 40), y);
       }
 
       // Show warm wish toast
@@ -390,14 +414,14 @@
       setTimeout(() => {
         toast.classList.remove('opacity-100', 'translate-y-0');
         toast.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
-      }, 4000);
+      }, 4500);
     }
 
     // Floating Hearts Engine
     function createHeartParticle(x, y) {
       const heart = document.createElement('div');
-      heart.className = 'heart-particle text-lg z-50';
-      const emojis = ['💖', '✨', '🌸', '👑', '💛'];
+      heart.className = 'heart-particle text-xl z-50';
+      const emojis = ['💖', '✨', '🌸', '👑', '💛', '🎈', '🎉', '🌟'];
       heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
       heart.style.left = `${x}px`;
       heart.style.top = `${y}px`;
@@ -408,14 +432,14 @@
       }, 3000);
     }
 
-    // Celebration Canvas Confetti
+    // Vibrant Multi-Colored Celebration Confetti
     function triggerCelebrationConfetti() {
       if (window.confetti) {
         window.confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 110,
+          spread: 80,
           origin: { y: 0.6 },
-          colors: ['#D4AF37', '#F3E5AB', '#FDF0F4', '#E6C594', '#2D1527']
+          colors: ['#FF007F', '#FF6B6B', '#FFB800', '#00C9A7', '#6C5CE7', '#FFD700', '#FF1493']
         });
       }
     }
@@ -432,10 +456,11 @@
       }
     }
 
-    // Background Bokeh Sparkle Canvas
+    // Background Bokeh Sparkle Canvas (Multi-color particles)
     const canvas = document.getElementById('bokehCanvas');
     const ctx = canvas.getContext('2d');
     let particles = [];
+    const particleColors = ['rgba(255, 0, 127, ', 'rgba(255, 184, 0, ', 'rgba(0, 201, 167, ', 'rgba(108, 92, 231, ', 'rgba(255, 107, 107, '];
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;
@@ -452,9 +477,10 @@
       reset() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.radius = Math.random() * 2 + 1;
-        this.alpha = Math.random() * 0.5 + 0.2;
-        this.speed = Math.random() * 0.4 + 0.1;
+        this.radius = Math.random() * 3 + 1;
+        this.alpha = Math.random() * 0.6 + 0.2;
+        this.speed = Math.random() * 0.5 + 0.15;
+        this.colorPrefix = particleColors[Math.floor(Math.random() * particleColors.length)];
       }
       update() {
         this.y -= this.speed;
@@ -463,12 +489,12 @@
       draw() {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(212, 175, 55, ${this.alpha})`;
+        ctx.fillStyle = `${this.colorPrefix}${this.alpha})`;
         ctx.fill();
       }
     }
 
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 50; i++) {
       particles.push(new Particle());
     }
 
